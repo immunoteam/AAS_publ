@@ -1,0 +1,178 @@
+---
+title: "Figure_2_source_data"
+output: html_document
+date: "2025-11-05"
+---
+
+#Panel A
+
+```{r}
+library(universalmotif)
+library(ggplot2)
+library(ggseqlogo)
+library(ggtext)
+
+#### Calculating the frequency of nucleotide substitution motifs in TCGA samples
+mutations = readRDS("/Users/matemanczinger/Documents/Projektek/mutational_signatures/_toolarge/MM_mutations_full_GDC_grch38.rds") #File found on the Zenodo repository
+mutations$mutsig = apply(cbind(mutations$Reference_Allele, mutations$Tumor_Seq_Allele2, mutations$CONTEXT), 1, FUN = function(x) {
+  if(nchar(x[3]) == 11) paste0(x[1], x[2], substr(x[3], 5, 7)) else NA
+})
+mutsigstat = table(mutations$mutsig[mutations$Variant_Type == "SNP"])
+mutsigstat = mutsigstat[nchar(names(mutsigstat)) == 5]
+mutsigstat_freq = mutsigstat / sum(mutsigstat)
+########################
+
+#### Simulating the effect of each of the 192 mutation profile by generating 1000 missense mutations
+load("/Users/matemanczinger/Documents/Projektek/mutational_signatures/clean_mutational_signatures/aa_changes_0916")
+#######################
+
+#### Associating mutation profiles with AASs
+result = readRDS(paste0("common_objects/MM_substitutions_GDC_grch38_10_5_relative.rds"))
+mtx = t(coef(result))
+mtx = mtx[,c(2,4,5,1,3)]
+colnames(mtx) = paste0("AASS", 1:5)
+
+probs = sapply(aa_changes, FUN = function(x) {
+  temp = x[!grepl("\\*", names(x))]
+  temp = unlist(apply(cbind(names(temp), temp), 1, FUN = function(y) rep(y[1], as.numeric(y[2]))))
+  sapply(temp, FUN = function(y) {
+    sample(colnames(mtx), prob = mtx[y,], replace = T)
+  })
+})
+
+probs_mtx = sapply(probs, FUN = function(x) {
+  temp = table(x)
+  temp = temp[paste0("AASS", 1:5)]
+  temp[is.na(temp)] = 0
+  temp
+})
+rownames(probs_mtx) = 1:5
+#######################
+
+#### Creating motifs
+motif = create_motif(probs_mtx[,mutsigstat_freq[names(aa_changes)] > 0.005], alphabet = "12345", pseudocount = 0, type = "ICM")
+motif_plot = view_motifs(motif, show.names = T, show.positions = T, use.type = "ICM", return.raw = T)
+toplot = motif_plot$motif
+colnames(toplot) = colnames(probs_mtx)[mutsigstat_freq[names(aa_changes)] > 0.005]
+toplot = toplot[,sort(colnames(toplot))]
+labs = paste0(substr(colnames(toplot), 3, 3), "<span style='color:red'>**", substr(colnames(toplot), 4, 4), "**</span>", substr(colnames(toplot), 5, 5))
+to_source_data = toplot
+to_source_data = cbind.data.frame(AAS = paste0("AAS", 1:5), as.data.frame(to_source_data))
+write.csv(to_source_data, file = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/A/motif_data.csv", quote = F, row.names = F)
+description = "motif_data.csv - contains the sizes (in bits) of AAS1 to AAS5 shown in Figure 2A, for each nucleotide mutation across different sequence contexts. In the column names, the first two characters indicate the nucleotide substitution, and characters 3–5 indicate the trinucleotide context. For example, ACAAA denotes an A>C substitution with an A at both the 5′ and 3′ flanking positions."
+writeLines(description, con = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/A/README")
+#######################
+
+#### Creating plot
+csh = make_col_scheme(chars=c('1', '2', '3', '4', '5'), groups=c('AAS1', 'AAS2', 'AAS3', 'AAS4', 'AAS5'), 
+                      cols=c("#0D1282", "#D71313", "#F0DE36", "#78B33E", "#B3823E"))
+p = ggseqlogo(toplot, method = "custom", namespace = 1:5, col_scheme = csh) 
+p = p + xlab("Mutations") + ylab("Bits") + scale_x_discrete(labels = rep(" ", 52))
+for(i in 1:52) p = p + annotate(geom = "richtext", x = i, y = 2.15, angle = 90, label = labs[i], fill = NA, label.color = NA) 
+p = p + annotate("segment", x = 0.75, xend = 1.25, y = 2)
+p = p + annotate("text", x = 1, y = 1.87, label = "A>C", angle = 90)
+p = p + annotate("segment", x = 1.75, xend = 2.25, y = 2)
+p = p + annotate("text", x = 2, y = 1.87, label = "A>G", angle = 90)
+p = p + annotate("segment", x = 2.75, xend = 9.25, y = 2)
+p = p + annotate("text", x = 6, y = 1.9, label = "C>A")
+p = p + annotate("segment", x = 9.75, xend = 11.25, y = 2)
+p = p + annotate("text", x = 10.5, y = 1.9, label = "C>G")
+p = p + annotate("segment", x = 11.75, xend = 26.25, y = 2)
+p = p + annotate("text", x = 19.5, y = 1.9, label = "C>T")
+p = p + annotate("segment", x = 26.75, xend = 41.25, y = 2)
+p = p + annotate("text", x = 34.5, y = 1.9, label = "G>A")
+p = p + annotate("segment", x = 41.75, xend = 43.25, y = 2)
+p = p + annotate("text", x = 42.5, y = 1.9, label = "G>C")
+p = p + annotate("segment", x = 43.75, xend = 50.25, y = 2)
+p = p + annotate("text", x = 47, y = 1.9, label = "G>T")
+p = p + annotate("segment", x = 50.75, xend = 51.25, y = 2)
+p = p + annotate("text", x = 51, y = 1.87, label = "T>C", angle = 90)
+p = p + annotate("segment", x = 51.75, xend = 52.25, y = 2)
+p = p + annotate("text", x = 52, y = 1.87, label = "T>G", angle = 90)
+p = p + theme(legend.position = "n")
+A = p + labs(tag = "A", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+##################
+```
+
+#Panel B
+
+```{r}
+library(pheatmap)
+library(NMF)
+
+result = readRDS(paste0("common_objects/MM_substitutions_GDC_grch38_10_5_relative.rds"))
+mtx = coef(result)
+mtx = mtx[c(2,4,5,1,3),]
+rownames(mtx) = paste0("AAS", 1:5)
+B = pheatmap(mtx[,apply(mtx, 2, max) > 0.01], cluster_rows = F, treeheight_col = 0, color = colorRampPalette(c("#0D1282", "#F0DE36", "#D71313"), bias = 1)(100))$gtable
+
+to_source_data = mtx
+to_source_data = cbind.data.frame(AAS = paste0("AAS", 1:5), as.data.frame(to_source_data))
+write.csv(to_source_data, file = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/B/heatmap_data.csv", quote = F, row.names = F)
+description = "heatmap_data.csv - contains the coefficients for each amino acid substitution in AAS1 to AAS5, as displayed in the heatmap in Figure 2B."
+writeLines(description, con = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/B/README")
+
+```
+
+#Panel C
+
+```{r}
+library(ggplot2)
+library(NMF)
+library(reshape2)
+
+result = readRDS(paste0("common_objects/MM_substitutions_GDC_grch38_10_5_relative.rds"))
+preval_in_samples = basis(result)
+rown = make.unique(substr(rownames(preval_in_samples), 1, 16))
+# 4 = 3, 1 = 1, 3 = 2
+preval_in_samples = preval_in_samples[,c(2,4,5,1,3)]
+colnames(preval_in_samples) = paste0("AASS", 1:ncol(preval_in_samples))
+
+load("common_objects/MM_tumors_studies.RData") #The object contains the classification of tumor samples to tumor types
+ttypes = unlist(tumors_studies[match(rownames(preval_in_samples), tumors_studies[,1]), 2])
+ttypestat = table(ttypes)
+ttypestat = ttypestat[ttypestat > 100]
+
+preval_in_samples = as.data.frame(preval_in_samples)
+preval_in_samples$ttype = ttypes
+preval_in_samples$dominant_AASS = apply(preval_in_samples, 1, FUN = function(x) {
+  temp = as.numeric(x[1:5])
+  temp = temp[1:5][temp[1:5] > 0.6]
+  if (length(temp) == 0) "mixed" else paste0("AAS", which.max(as.numeric(x[1:5]))) 
+})
+
+kimut = table(preval_in_samples$ttype, preval_in_samples$dominant_AASS)
+class(kimut) = "matrix"
+kimut = melt(kimut)
+colnames(kimut) = c("tumor_type", "dominant_AASS", "count")
+
+C = ggplot(kimut, aes(fill=dominant_AASS, y=count, x=tumor_type)) + 
+    geom_bar(position="fill", stat="identity") + scale_fill_manual(name = "AAS group",values = c("#0D1282", "#D71313", "#F0DE36", "#78B33E", "#B3823E", "gray")) + theme_classic() + xlab("Tumor types") + ylab("Fraction of tumors") + theme(legend.title = element_text("")) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + theme(axis.title.x=element_blank()) +
+    theme(legend.position="bottom")               
+C = C + labs(tag = "C", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+to_source_data = kimut
+colnames(to_source_data) = c("Tumor type", "Dominant AAS", "Sample count")
+write.csv(to_source_data, file = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/C/barchart_data.csv", quote = F, row.names = F)
+description = "barchart_data.csv - contains the number of samples for each tumor type whose mutational profiles are dominated by AAS1 to AAS5."
+writeLines(description, con = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/C/README")
+
+```
+
+#Put the figure together
+
+```{r}
+library(gridExtra)
+layout = rbind(c(1,1,1,1,1,1,3,3,3,3),
+               c(1,1,1,1,1,1,3,3,3,3),
+               c(1,1,1,1,1,1,3,3,3,3),
+               c(1,1,1,1,1,1,3,3,3,3),
+               c(2,2,2,2,2,2,3,3,3,3),
+               c(2,2,2,2,2,2,3,3,3,3))
+
+figure_2 =  arrangeGrob(A,B,C, layout_matrix = layout)
+ggsave(plot = figure_2, filename = "/Users/matemanczinger/Documents/Projektek/mutational_signatures/clean_mutational_signatures/results/plots/MM_Figure_2.pdf", width = 40, height = 18, units = "cm", dpi = 300)
+
+```
+
+Note: the letter for panel B was manually inserted in Vectornator.
