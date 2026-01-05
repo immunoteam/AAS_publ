@@ -6,9 +6,9 @@ This repository contains code for generating the **main figures** in:
 
 ## What’s in this repo
 
-- Figure-generation scripts used to reproduce the **main manuscript figures**.
+- Figure- and source data-generation scripts used to reproduce the **main manuscript figures**.
 
-> Note: Large files and raw input datasets are excluded from version control and can be downloaded from https://zenodo.org/records/17962590 
+> Note: Large files are excluded from version control and can be downloaded from https://zenodo.org/records/17962590 
 
 ## Citation
 
