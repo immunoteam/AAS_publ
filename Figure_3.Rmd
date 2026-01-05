@@ -1,0 +1,86 @@
+---
+title: "Figure_3_source_data"
+output: html_document
+date: "2025-11-05"
+---
+
+# Panel A
+
+```{r}
+library(reshape2)
+library(ggplot2)
+
+signal = readRDS("MM_signal_simil_to_aas_GDC_grch38.rds")
+rownames(signal)[34] = "3-Chloro-4-(dichloromethyl)-\n5-hydroxy-2(5H)-furanone 7 µM"
+rownames(signal)[10] = "Dibenz[a,h]anthracene-diol\nepoxide 0.109 µM"
+cosmic = readRDS("MM_cosmic_simil_to_aas_GDC_grch38.rds")
+KO = readRDS("MM_KO_simil_to_aasGDC_grch38.rds")
+signal_sign = melt(signal)
+signal_sign = signal_sign[signal_sign$value > 0.7,]
+cosmic_sign = melt(cosmic)
+cosmic_sign = cosmic_sign[cosmic_sign$value > 0.7,]
+KO_sign = melt(KO)
+KO_sign = KO_sign[KO_sign$value > 0.7,]
+
+all = rbind.data.frame(cbind.data.frame(signal_sign, type = "Signal"),
+                       cbind.data.frame(cosmic_sign, type = "COSMIC"),
+                       cbind.data.frame(KO_sign, type = "Gene KO"))
+
+colnames(all) = c("agent", "AAS", "similarity", "type")
+
+all = all[order(all$similarity, decreasing = T),]
+all = all[order(all$AAS),]
+all$agent = factor(all$agent, levels = as.character(all$agent))
+A = ggplot(all, aes(x = agent, y = similarity, fill = type)) + geom_bar(stat = "identity") + theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + xlab(NULL) + ylab("Cosine similarity")  + scale_fill_manual(name = "AASS group",values = c("#D71313", "#F0DE36", "#0D1282")) + geom_vline(xintercept = c(23.5,31.5, 35.5, 54.5), linetype = "dashed") + annotate(geom = "text", x = 12, y = 1, label = "AAS1") + annotate(geom = "text", x = 27.5, y = 1, label = "AAS2") + annotate(geom = "text", x = 33.5, y = 1, label = "AAS3") + annotate(geom = "text", x = 46, y = 1, label = "AAS4") + annotate(geom = "text", x = 55, y = 0.87, label = "AAS5", angle = 90) +  labs(tag = "A", face = "bold") + theme(plot.tag = element_text(face = "bold")) + theme(legend.position="bottom")
+
+to_source_data = all
+colnames(to_source_data) = c("Agent", "Associated AAS", "Cosine similarity", "Class")
+to_source_data$`Associated AAS` = gsub("AASS", "AAS", to_source_data$`Associated AAS`)
+write.csv(to_source_data, file = "source_data/Figure_3/A/barchart_data.csv", quote = T, row.names = F)
+description = "barchart_data.csv - contains the cosine similarity values to AAS1–AAS5 and the corresponding agent classifications shown in Figure 3A"
+writeLines(description, con = "source_data/Figure_3/A/README")
+
+```
+
+# Panel B
+
+```{r}
+library(ggplot2)
+library(ggpubr)
+load("MM_association_vs_PubMed_hits_07.RData")
+B = ggplot(AASS_tumor, aes(x = association, y = maxcount + 1)) + geom_point(colour = "#00215E", size = 2) + scale_y_log10() + scale_x_log10()  + geom_smooth(span = 2.5, linetype = "dashed", col = "#D71313") + stat_cor(method = "spearman", label.y = 4, label.x = -0.4) + theme_classic()  + xlab("Association strength (Tumor-AAS)") + ylab("Number of PubMed hits") +  labs(tag = "B", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+to_source_data = AASS_tumor
+colnames(to_source_data) = c("Tumor type", "AAS", "Total count", "Association strength", "Label")
+to_source_data$AAS = gsub("AASS", "AAS", to_source_data$AAS)
+to_source_data$Label = gsub("AASS", "AAS", to_source_data$Label)
+write.csv(to_source_data, file = "source_data/Figure_3/B/scatterplot_data.csv", quote = F, row.names = F)
+description = "scatterplot_data.csv - contains the association strengths between tumor types and AAS1–AAS5, as well as the total number of PubMed hits retrieved for each tumor type–AAS pair, as shown in Figure 3B."
+writeLines(description, con = "source_data/Figure_3/B/README")
+
+```
+
+# Panel C
+
+```{r}
+library(magick)
+library(pdftools)
+C = image_read_pdf("MMR_concept_corrected.pdf")
+C = image_ggplot(C)
+C = C + labs(tag = "C", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+```
+
+#Put the figure together
+
+```{r}
+library(gridExtra)
+layout = rbind(c(1,1,1,1,1,1,1,1,1,1),
+               c(1,1,1,1,1,1,1,1,1,1),
+               c(2,2,2,2,3,3,3,3,3,3),
+               c(2,2,2,2,3,3,3,3,3,3))
+
+figure_3 =  arrangeGrob(A,B,C, layout_matrix = layout)
+ggsave(plot = figure_3, filename = "plots/MM_Figure_3.pdf", width = 30, height = 24, units = "cm", dpi = 300)
+
+```

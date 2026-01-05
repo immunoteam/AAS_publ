@@ -1,0 +1,92 @@
+---
+title: "Figure_4_source_data"
+output: html_document
+date: "2025-11-05"
+---
+
+# Panel A-B
+
+```{r}
+library(NMF)
+result = readRDS(paste0("MM_substitutions_GDC_grch38_10_5_relative.rds"))
+preval_in_samples = basis(result)
+preval_in_samples = as.data.frame(preval_in_samples)
+preval_in_samples = preval_in_samples[,c(2,4,5,1,3)]
+colnames(preval_in_samples) = paste0("AAS", 1:ncol(preval_in_samples))
+
+preval_in_samples$dominant_AASS = apply(preval_in_samples, 1, FUN = function(x) {
+  temp = as.numeric(x[1:5])
+  temp = temp[1:5][temp[1:5] > 0.6]
+  if (length(temp) == 0) "mixed" else paste0("AAS", which.max(as.numeric(x[1:5]))) 
+})
+
+relative_aafreq_in_samples = readRDS(paste0("MM_relative_aasubstitution_freq_in_samples_GDC_grch38.rds"))
+
+library(Peptides)
+delta_hydrophobicity = sapply(colnames(relative_aafreq_in_samples), FUN = function(x) hydrophobicity(substr(x, 2, 2), scale = "KyteDoolittle") - hydrophobicity(substr(x, 1, 1), scale = "KyteDoolittle"))
+delta_charge = sapply(colnames(relative_aafreq_in_samples), FUN = function(x) charge(substr(x, 2, 2)) - charge(substr(x, 1, 1)))
+preval_in_samples$delta_hydrophobicity = apply(relative_aafreq_in_samples, 1, FUN = function(x) sum(x*delta_hydrophobicity))
+preval_in_samples$delta_charge = apply(relative_aafreq_in_samples, 1, FUN = function(x) sum(x*abs(delta_charge)))
+
+A = ggplot(preval_in_samples, aes(x = dominant_AASS, y = delta_hydrophobicity, fill = dominant_AASS)) + geom_boxplot() + xlab(NULL) + ylab("Change in hydrophobicity") + geom_hline(yintercept = 0, linetype = "dotted") + scale_fill_manual(values = c("#0D1282", "#D71313", "#F0DE36", "#78B33E", "#B3823E", "black")) + theme_classic() + theme(legend.position = "none") +  labs(tag = "A", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+B = ggplot(preval_in_samples, aes(x = dominant_AASS, y = delta_charge, fill = dominant_AASS)) + geom_boxplot()  + xlab(NULL) + ylab("Change in charge (absolute value)") + geom_hline(yintercept = 0, linetype = "dotted") + scale_fill_manual(values = c("#0D1282", "#D71313", "#F0DE36", "#78B33E", "#B3823E", "black")) + theme_classic() + theme(legend.position = "none") +  labs(tag = "B", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+to_source_data = preval_in_samples
+to_source_data = cbind.data.frame(Sample_ID = rownames(to_source_data), as.data.frame(to_source_data[,6:8]))
+colnames(to_source_data) = c("Sample ID", "Dominant AAS", "Change in hydrophobicity", "Change in charge (absolute value)")
+write.csv(to_source_data, file = "source_data/Figure_4/A/boxplot_data.csv", quote = F, row.names = F)
+write.csv(to_source_data, file = "source_data/Figure_4/B/boxplot_data.csv", quote = F, row.names = F)
+description = "boxplot_data.csv - contains the classification of tumor samples to AAS groups and the effect of amino acid substitutions on hydrophobicity and charge in each sample"
+writeLines(description, con = "source_data/Figure_4/A/README")
+writeLines(description, con = "source_data/Figure_4/B/README")
+
+
+```
+
+# Panel C-D
+
+```{r}
+library(ggpubr)
+library(ggsimplestats)
+library(pixiedust)
+
+preval_in_samples = readRDS("MM_preval_in_samples_prime_1.rds")
+
+preval_in_samples$group[preval_in_samples$dominant_AASS != "AASS4" & preval_in_samples$dominant_AASS != "AASS5"] = "Others"
+preval_in_samples$group[preval_in_samples$dominant_AASS == "AASS4"] = "AAS4"
+preval_in_samples$group[preval_in_samples$dominant_AASS == "AASS5"] = "AAS5"
+preval_in_samples$group = factor(preval_in_samples$group, levels = c("Others", "AAS4", "AAS5"))
+levels(preval_in_samples$group) = c("Others", "AAS4", "AAS5")
+
+
+pval_format = function(x) pval_string(x, format = "scientific", digits = 4)
+
+C = ggplot(preval_in_samples, aes(x = group, y = prime_harmonic_mean, fill = group)) + geom_boxplot() + xlab(NULL) + ylab("Harmonic mean of PRIME rank% in samples") + geom_hline(yintercept = 0, linetype = "dotted") + scale_fill_manual(values = c("black", "#78B33E", "#B3823E")) + theme_classic() + theme(legend.position = "none") +  labs(tag = "C", face = "bold") + theme(plot.tag = element_text(face = "bold")) + stat_kwAllPairsDunnTest(format.fun = pval_format, size = 7, vjust = -0.3)
+
+
+D = ggplot(preval_in_samples, aes(x = group, y = binding_harmonic_mean, fill = group)) + geom_boxplot()  + xlab(NULL) + ylab("Harmonic mean of binding rank% in samples") + geom_hline(yintercept = 0, linetype = "dotted") + scale_fill_manual(values = c("black", "#78B33E", "#B3823E")) + theme_classic() + theme(legend.position = "none") +  labs(tag = "D", face = "bold") + theme(plot.tag = element_text(face = "bold")) + stat_kwAllPairsDunnTest(format.fun = pval_format, size = 7, vjust = -0.3)
+
+to_source_data = preval_in_samples
+to_source_data = cbind.data.frame(Sample_ID = rownames(to_source_data), as.data.frame(to_source_data[,c(18,11,15)]))
+colnames(to_source_data) = c("Sample ID", "Group", "Prime Rank% harmonic mean", "Binding Rank% harmonic mean")
+write.csv(to_source_data, file = "source_data/Figure_4/C/boxplot_data.csv", quote = F, row.names = F)
+write.csv(to_source_data, file = "source_data/Figure_4/D/boxplot_data.csv", quote = F, row.names = F)
+description = "boxplot_data.csv - contains the classification of tumor samples to AAS groups and the harmonic mean of PRIME Rank% and binding rank% for each sample"
+writeLines(description, con = "source_data/Figure_4/C/README")
+writeLines(description, con = "source_data/Figure_4/D/README")
+
+
+```
+
+# Putting figure together
+
+```{r}
+layout = rbind(c(1,1,1,2,2,2,3,3,4,4),
+               c(1,1,1,2,2,2,3,3,4,4))
+
+figure_4 =  arrangeGrob(A,B,C,D, layout_matrix = layout)
+ggsave(plot = figure_4, filename = "plots/MM_Figure_4.pdf", width = 30, height = 10, units = "cm", dpi = 300)
+
+```
+

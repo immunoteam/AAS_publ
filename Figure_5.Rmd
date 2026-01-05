@@ -1,0 +1,63 @@
+---
+title: "Figure_5"
+output: html_document
+date: "2025-11-11"
+---
+
+```{r}
+library(magick)
+A = image_read_pdf("bagaev_corrected_withp_resized.pdf")
+A = image_ggplot(A)
+A = A + labs(tag = "A", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+library(dplyr)
+B = image_read_pdf("m1m2_ly_together.pdf")
+B = image_ggplot(B)
+B = B + labs(tag = "B", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+C = image_read_pdf("Figure 3E_3.pdf")
+C = image_ggplot(C)
+C = C + labs(tag = "C", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+layout = rbind(c(5,5,5,6,6,6,6,6,7,7),
+               c(5,5,5,6,6,6,6,6,7,7),
+               c(5,5,5,6,6,6,6,6,7,7))
+
+figure_5 =  arrangeGrob(A,B,C,layout_matrix = layout)
+ggsave(plot = figure_5, filename = "plots/MM_Figure_5.pdf", width = 33, height = 13, units = "cm", dpi = 300)
+
+```
+
+```{r}
+m1m2 = readRDS("macrophages_m1_per_m2.rds")
+ly = readRDS("lymphocyte_infiltration_signature_score.rds")
+
+m1m2 = cbind.data.frame(m1m2$tcga_participant_barcode_extended, gsub("AASS", "AAS", as.character(m1m2$dominant_aass_selected_vs_other)), m1m2$log10_macrophages_m1_per_m2_epsilon)
+colnames(m1m2) = c("Sample ID", "Dominant AAS", "log(M1/M2 macrophage)")
+write.csv(m1m2, file = "source_data/Figure_5/B/data_m1m2.csv", row.names = F, quote = F)
+
+ly = cbind.data.frame(ly$tcga_participant_barcode_extended, gsub("AASS", "AAS", as.character(ly$dominant_aass_selected_vs_other)), ly$lymphocyte_infiltration_signature_score)
+colnames(ly) = c("Sample ID", "Dominant AAS", "Lymphocyte infiltration signature score")
+write.csv(ly, file = "source_data/Figure_5/B/data_ly.csv", row.names = F, quote = F)
+
+description = c("data_m1m2.csv - contains data for the boxplot indicating M1/M2 macrophage ratio in different groups",
+                "data_ly.csv - contains data for the boxplot indicating lyphocyte infiltration signature score in different groups")
+
+writeLines(description, con = "source_data/Figure_5/B/README")
+
+cd4 = readRDS("t_cells_cd4_memory_activated.rds")
+cd4 = cbind.data.frame(cd4$tcga_participant_barcode_extended, gsub("AASS", "AAS", as.character(cd4$dominant_aass_selected_vs_other)), cd4$t_cells_cd4_memory_activated, cd4$t_cells_cd4_memory_activated_present_absent)
+colnames(cd4) = c("Sample ID", "Dominant AAS", "Abundance of activated memory CD4+ T cells", "Class")
+
+write.csv(cd4, file = "source_data/Figure_5/C/data_pie.csv", row.names = F, quote = F)
+description = c("data_pie.csv - contains data for the pie chart")
+writeLines(description, con = "source_data/Figure_5/C/README")
+
+description = c("data_pie.csv - contains data for the pie chart")
+writeLines(description, con = "source_data/Figure_5/C/README")
+
+description = c("table_data.csv - contains data for the table")
+writeLines(description, con = "source_data/Figure_5/A/README")
+
+```
+
+

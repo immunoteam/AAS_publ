@@ -1,0 +1,141 @@
+---
+title: "Figure_7_source_data"
+output: html_document
+date: "2025-11-05"
+---
+
+# Panels A and B
+
+```{r}
+load("MM_preval_in_samples_06.rds")
+genotypes = readRDS("MM_genotypes_modified.rds") # Restricted - authors can send the object only after verifying that the recipient has approved controlled access to TCGA
+preval_in_samples = cbind.data.frame(preval_in_samples, genotypes[match(substr(rownames(preval_in_samples), 1, 12), rownames(genotypes)),])
+thorson = read.delim("zenodo/MM_thorsson.txt")
+preval_in_samples = cbind.data.frame(preval_in_samples, thorson[match(substr(rownames(preval_in_samples), 1, 12), thorson$TCGA.Participant.Barcode), c(5,6,7,8,9,10,11,12,13,14,21:32,37:64)])
+
+AASS4 = preval_in_samples[preval_in_samples$dominant_AASS == "AASS4",]
+AASS4_bagaev = apply(AASS4, 1, FUN = function(x) cbind(x[59], x[9:14]), simplify = F)
+AASS4_bagaev = do.call(rbind, AASS4_bagaev)
+AASS4_bagaev = AASS4_bagaev[!is.na(AASS4_bagaev[,1]),]
+quantile(preval_in_samples$Lymphocytes, prob = 0.95, na.rm = T)
+allele_distr = table(as.numeric(AASS4_bagaev[,1]) > 0.74187365, AASS4_bagaev[,2])
+class(allele_distr) = "matrix"
+
+all_true = sum(allele_distr[2,colSums(allele_distr) > 75])
+all_false = sum(allele_distr[1,colSums(allele_distr) > 75])
+
+allele_enrichment = t(apply(allele_distr[,colSums(allele_distr) > 75], 2, FUN = function(x) {
+  conting = rbind(c(x[2], all_true - x[2]), c(x[1], all_false - x[1]))
+  ftest = fisher.test(conting)
+  c(ftest$estimate, ftest$p.value)
+}))
+
+allele_enrichment = cbind(allele_enrichment, p.adjust(as.numeric(allele_enrichment[,2]), method = "fdr"))
+
+result = readRDS(paste0("MM_substitutions_GDC_grch38_10_5_relative.rds"))
+signatures = coef(result)
+signatures = signatures[c(2,4,5,1,3),]
+rownames(signatures) = paste0("AASS", 1:5)
+
+hla_aa = t(readRDS("MM_AAspec_Sarkizova_TRUE_KL_FALSE.rds"))
+hla_aa = hla_aa[,substr(colnames(signatures), 2, 2)]
+hla_aff = apply(hla_aa, 1, FUN = function(x) {
+  apply(signatures, 1, FUN = function(y) sum(y*x))
+})
+rownames(hla_aff) = paste0("AASS", 1:5)
+allele_enrichment = cbind(allele_enrichment, hla_aff["AASS4", match(rownames(allele_enrichment), colnames(hla_aff))])
+
+library(ggrepel)
+
+allele_enrichment = as.data.frame(allele_enrichment)
+colnames(allele_enrichment) = c("OR", "P", "FDR", "AASS4_aff")
+A = ggplot(allele_enrichment, aes(x = AASS4_aff, y = OR)) + geom_point(colour = "#00215E", size = 2) + scale_y_log10() + geom_smooth(span = 2.5, linetype = "dashed", col = "#D71313") + stat_cor(method = "spearman", label.y = 0.4, label.x = 0.25) + theme_classic()  + xlab("Affinity for AAS4 substitutions") + ylab("Enrichment of allele in lymphocyte-rich tumors") +  labs(tag = "A", face = "bold") + theme(plot.tag = element_text(face = "bold")) + geom_text_repel(label = rownames(allele_enrichment)) 
+
+mtx = t(signatures)
+df = sort(mtx[mtx[,"AASS4"] > 0.01,"AASS4"], decreasing = T)
+df = data.frame(Substitution = names(df), Value = unname(df), Allele = "Other")
+df$Allele[substr(df$Substitution, 2, 2) == "R"] = "B2705"
+df$Allele[substr(df$Substitution, 2, 2) == "P"] = "B0702"
+df$Allele[substr(df$Substitution, 2, 2) == "E"] = "B4001"
+df$Substitution = factor(df$Substitution, levels = df$Substitution)
+
+B = ggplot(df, aes(x = Substitution, y = Value, fill = Allele)) + geom_bar(stat = "identity") +theme_classic() +
+  labs(tag = "B", face = "bold") + theme(plot.tag = element_text(face = "bold")) + scale_fill_manual(values = c("black", "#00215E", "#D71313", "gray")) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + theme(legend.position="bottom") + ylab("Association strength to AAS4")
+
+hlai_motifs = readRDS("zenodo/motifs_hlai.rds")
+hlai_alleles = readRDS("motiftables_hlai.rds")
+hla_motif_aa_aff = t(sapply(hlai_alleles, FUN = function(x) rowSums(x)))
+alleles = readLines("hlai_alleles")
+rownames(hla_motif_aa_aff) = alleles
+
+
+C = image_read_pdf("Figure 4C.pdf")
+C = image_ggplot(C)
+C = C + labs(tag = "C", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+B_1= hlai_motifs[[which(alleles == "B0702")]]+ ggtitle("B0702") + theme(plot.title = element_text(size = 10), axis.text=element_text(size=9),axis.title=element_text(size=8,face="bold"))
+B_2= hlai_motifs[[which(alleles == "B2705")]]+ ggtitle("B2705") + theme(plot.title = element_text(size = 10), axis.text=element_text(size=9),axis.title=element_text(size=8,face="bold"))
+B_3= hlai_motifs[[which(alleles == "B4001")]]+ ggtitle("B4001") + theme(plot.title = element_text(size = 10), axis.text=element_text(size=9),axis.title=element_text(size=8,face="bold"))
+
+
+library(magick)
+D = image_read_pdf("MM_Mutational Signatures experimental figure.pdf")
+D = image_ggplot(D)
+D = D + labs(tag = "D", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+layout = rbind(c(1,1,1,1,1,2,2,2,3,3),
+               c(1,1,1,1,1,2,2,2,4,4),
+               c(1,1,1,1,1,2,2,2,5,5),
+               c(6,6,6,6,6,7,7,7,7,7),
+               c(6,6,6,6,6,7,7,7,7,7),
+               c(6,6,6,6,6,7,7,7,7,7),
+               c(6,6,6,6,6,7,7,7,7,7))
+               
+
+figure_7 =  arrangeGrob(A,B,B_1,B_2,B_3,C,D, layout_matrix = layout)
+ggsave(plot = figure_7, filename = "plots/MM_Figure_7.pdf", width = 32, height = 30, units = "cm", dpi = 300)
+
+to_source_data = cbind.data.frame(allele = rownames(allele_enrichment), allele_enrichment[,c(1,4)])
+colnames(to_source_data) = c("Allele", "Enrichment in lymphocyte-rich samples (OR)", "Affinity to AAS4")
+write.csv(to_source_data, file = "source_data/Figure_7/A/scatterplot_data.csv", quote = T, row.names = F)
+description = "scatterplot_data.csv - contains data for the scatterplot on Figure 7A"
+writeLines(description, con = "source_data/Figure_7/A/README")
+
+to_source_data = df
+colnames(to_source_data)[2] = c("Association strength with AAS4 in coef. matrix")
+write.csv(to_source_data, file = "source_data/Figure_7/B/barplot_data.csv", quote = T, row.names = F)
+description = "barplot_data.csv - contains data for the barplot on Figure 7B"
+writeLines(description, con = "source_data/Figure_7/B/README")
+
+to_source_data = hlai_alleles[[which(alleles == "B0702")]]
+to_source_data = cbind.data.frame(AA = rownames(to_source_data), to_source_data)
+colnames(to_source_data) = c("Amino acid", paste("Position", 1:9))
+write.csv(to_source_data, file = "source_data/Figure_7/B/motif_dataB0702.csv", quote = T, row.names = F)
+
+to_source_data = hlai_alleles[[which(alleles == "B2705")]]
+to_source_data = cbind.data.frame(AA = rownames(to_source_data), to_source_data)
+colnames(to_source_data) = c("Amino acid", paste("Position", 1:9))
+write.csv(to_source_data, file = "source_data/Figure_7/B/motif_dataB2705.csv", quote = T, row.names = F)
+
+to_source_data = hlai_alleles[[which(alleles == "B4001")]]
+to_source_data = cbind.data.frame(AA = rownames(to_source_data), to_source_data)
+colnames(to_source_data) = c("Amino acid", paste("Position", 1:9))
+write.csv(to_source_data, file = "source_data/Figure_7/B/motif_dataB4001.csv", quote = T, row.names = F)
+
+
+description = c("barplot_data.csv - contains data for the barplot in Figure 7B",
+                "motif_dataB0702.csv - contains data for B0702 binding motif in Figure 7B",
+                "motif_dataB2705.csv - contains data for B2702 binding motif in Figure 7B",
+                "motif_dataB4001.csv - contains data for B4001 binding motif in Figure 7B")
+writeLines(description, con = "source_data/Figure_7/B/README")
+
+to_source_data = readRDS("common_objects/MM_data_for_experiments.rds")
+to_source_data = to_source_data[,3:7]
+colnames(to_source_data) = c("Division index", "HLA PBMC", "HLA PBMC (short)", "HLA A549", "Group")
+
+write.csv(to_source_data, file = "source_data/Figure_7/D/boxplot_data.csv", quote = T, row.names = F)
+description = "boxplot_data.csv - contains data for the boxplot in Figure 7D"
+writeLines(description, con = "source_data/Figure_7/D/README")
+
+```
+

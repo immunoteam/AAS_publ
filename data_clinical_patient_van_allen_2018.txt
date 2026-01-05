@@ -1,0 +1,254 @@
+#Patient Identifier	Sex	p16 ISH	Overall Survival (Months)	Progress Free Survival (Months)	Progression Free Status	Histology	Subtype	Smoker	Person Cigarette Smoking History Pack Year Value	RECIST Response	Age Start IO	RECIST	VA Response	ROH Response	Drug Type	Other Concurrent Therapy	Overall Survival Status
+#Identifier to uniquely specify a patient.	Sex	p16 ISH	Overall survival in months since initial diagonosis.	Progress Free Survival (Months)	Progression Free Status	Histology	Subtype	Indicates if person is a smoker.	Numeric computed value to represent lifetime tobacco exposure defined as number of cigarettes smoked per day x number of years smoked divided by 20.	RECIST Response	Age Start IO	RECIST Status	VA Response	ROH Response	What type of drug was administered?	Did the patient receive any other concurrent therapy	Overall patient survival status.
+#STRING	STRING	STRING	NUMBER	NUMBER	STRING	STRING	STRING	STRING	NUMBER	STRING	STRING	STRING	STRING	STRING	STRING	STRING	STRING
+#1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	9
+PATIENT_ID	SEX	P16_ISH	OS_MONTHS	PFS_MONTHS	PFS_STATUS	HISTOLOGY	SUBTYPE	SMOKER	SMOKING_PACK_YEARS	RECIST_RESPONSE	AGE_START_IO	RECIST	VA_RESPONSE	ROH_RESPONSE	DRUG_TYPE	OTHER_CONCURRENT_THERAPY	OS_STATUS
+AC_PD1-1	Male		27.01	27.01	1:Progressed					clinical benefit		CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_15	Male		8.39	8.39	1:Progressed	adenocarcinoma		Former	34.0	stable disease	59.0	SD	no clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_33	Male		1.78	1.78	0:Not Progressed	adenocarcinoma		Former	10.0	no clinical benefit	64.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_22	Female		6.48	6.48	0:Not Progressed	adenocarcinoma		Former	43.75	stable disease	73.0	SD	no clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLADDER-15330_CCPM_0700629	Male		3.49	1.78	1:Progressed					clinical benefit	69.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLADDER-15330_CCPM_0700691	Male		5.72	4.05	0:Not Progressed					stable disease	57.0	SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLADDER-15330_CCPM_0700692	Male		8.95	3.91	0:Not Progressed					stable disease	68.0	SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLADDER-15330_CCPM_0700694	Male		9.44	4.8	0:Not Progressed					clinical benefit	60.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA_immunotherapy_responder-DFCI_11-104_011	Male		44.34	19.44	0:Not Progressed					clinical benefit		CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA-001	Male		3.16	1.05	0:Not Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLCA-002	Male		16.71	16.71	1:Progressed					stable disease		SD	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA-003	Male		2.43	0.95	0:Not Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLCA-005	Female		16.55	16.55	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA-006	Male		12.11	5.43	0:Not Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	1:DECEASED
+BLCA-007	Female		13.03	13.03	1:Progressed					clinical benefit		CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA-008	Female		3.45	3.45	0:Not Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLCA-009	Male		4.67	4.05	0:Not Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLCA-010	Male		16.12	16.12	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA-011	Male		5.56	2.07	0:Not Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLCA-012	Male		16.58	15.76	0:Not Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA-014	Female		11.84	1.97	0:Not Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+BLCA-015	Male		3.13	2.27	0:Not Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+BLCA-016	Female		24.47	24.47	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+IM_01	Male		7.01	2.8	0:Not Progressed					no clinical benefit	67.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+IM_04	Female		6.41	5.59	0:Not Progressed					stable disease	55.0	SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+IM_06	Female		24.01	1.91	0:Not Progressed					no clinical benefit	58.0	PD	long-term survival	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+IM_07	Male		16.32	16.32	0:Not Progressed					clinical benefit	55.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+IM_09	Female		21.81	14.51	0:Not Progressed					clinical benefit	74.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+IM_10	Male		15.39	11.71	0:Not Progressed					clinical benefit	72.0	CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+IM_11	Male		13.52	5.59	0:Not Progressed					clinical benefit	68.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+IM_12	Male		4.7	2.8	0:Not Progressed					no clinical benefit	79.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+luad_mskcc_2015_9	Male		14.51	14.51	0:Not Progressed	adenocarcinoma		Former	80.0	clinical benefit	57.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+CANSEQU01-0100425	Female		24.18	6.81	0:Not Progressed	Adenocarcinoma		former	45.0	clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+CR0095	Male		68.44	14.97		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+CR04885	Female		25.21	19.57		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+CR06670	Female		44.42	38.68		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+CR1509	Female		54.03	16.58		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+CR22640	Male		51.63	49.74		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+CR3665	Male		32.42	11.05		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+CR6126	Female		23.26	23.26		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+CR6161	Male		31.32	31.32		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+CR9306	Male		63.63	9.67		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+CR9699	Male		52.83	11.97		cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+luad_mskcc_2015_8	Male		3.98	3.98	1:Progressed	squamous cell carcinoma		Former	39.0	stable disease	57.0	SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+DFCI_MM_1	Female		19.74	18.03	0:Not Progressed	mucosal				clinical benefit		CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+DFCI_MM_2	Female		12.01	12.01	0:Not Progressed	cutaneous				clinical benefit		CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_18	Female		9.8	9.8	1:Progressed	adenocarcinoma		Current	60.0	clinical benefit	61.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_24	Male		1.88	1.88	0:Not Progressed	adenocarcinoma		Never	0.0	no clinical benefit	50.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_11	Female		4.18	4.18	1:Progressed	adenocarcinoma		Current	25.0	clinical benefit	65.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_23	Male		1.88	1.88	0:Not Progressed	squamous cell carcinoma		Current	45.0	no clinical benefit	59.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_2	Female		14.7	14.7	1:Progressed	adenocarcinoma		Former	58.0	clinical benefit	63.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+HNSCC-186	Male	unknown	20.39	19.61	0:Not Progressed	base of tongue	poorly differentiated	never	0.0	stable disease		SD	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+HNSCC-215	Male	positive	8.75	2.14	0:Not Progressed	tonsil	poorly differentiated	never	0.0	no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+HNSCC-238	Male	positive	15.13	10.36	0:Not Progressed	tonsil	moderately differentiated	never	0.0	clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+HNSCC-239	Male	positive	13.22	4.54	0:Not Progressed	tonsil	moderately differentiated	yes	30.0	stable disease		SD	clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+HNSCC-243	Male	positive	3.72	1.81	0:Not Progressed	tonsil	poorly differentiated	never	0.0	no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	0:LIVING
+HNSCC-258	Male	positive	12.43	12.43	1:Progressed	nasopharynx	moderately differentiated	yes	11.0	stable disease		SD	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+HNSCC-266	Female	negative	1.97	1.28	0:Not Progressed	oral tongue	poorly differentiated	never	0.0	no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+HNSCC-287	Male	unknown	2.34	1.84	0:Not Progressed	larynx	moderate to poorly differentiated	yes	11.0	no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	1:DECEASED
+HNSCC-296	Male	positive	1.51	1.41	0:Not Progressed	oropharynx	poorly differentiated	yes	11.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	yes	1:DECEASED
+HNSCC-305	Male	positive	4.9	2.8	0:Not Progressed	tonsil	poorly differentiated	never	0.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	0:LIVING
+HNSCC-306	Male	positive	5.56	2.76	0:Not Progressed	tonsil	poorly differentiated	yes	11.0	no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	0:LIVING
+HNSCC-323	Male	negative	4.61	4.61	1:Progressed	oropharynx	moderately differentiated	yes	11.0	clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	yes	0:LIVING
+luad_mskcc_2015_16	Male		3.29	3.29	0:Not Progressed	adenocarcinoma		Never	0.0	no clinical benefit	60.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_12	Female		8.09	8.09	0:Not Progressed	adenocarcinoma		Former	52.5	stable disease	64.0	SD	no clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_28	Female		3.49	3.49	0:Not Progressed	adenocarcinoma		Former	6.0	stable disease	62.0	SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_29	Female		6.28	6.28	0:Not Progressed	adenocarcinoma		Former	8.0	stable disease	56.0	SD	no clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+LSD0167	Male		32.42	32.24		cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+LSD2057	Female		39.62	14.74		cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+LSD3484	Male		35.46	35.46		cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+LSD4744	Male		25.21	18.42		cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+LSD6819	Male		40.82	15.43		cutaneous	acral lentiginous			stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+SU2C-1026	Female		7.99	7.99	0:Not Progressed	Adenocarcinoma		former	12.0	clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1022	Male		4.47	4.24	0:Not Progressed	Squamous Cell Carcinoma		current	30.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	yes	1:DECEASED
+SU2C-1037	Male		3.91	1.71	0:Not Progressed	Adenocarcinoma		former	28.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1038	Female		3.91	1.15	0:Not Progressed	Adenocarcinoma		never	0.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1039	Female		58.59	13.75	0:Not Progressed	Squamous Cell Carcinoma		former	10.0	stable disease		SD	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1029	Female		13.59	4.7	0:Not Progressed	Adenocarcinoma		current	50.0	clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1027	Female		10.72	4.11	0:Not Progressed	Adenocarcinoma		former	25.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1030	Female		6.74	3.22	0:Not Progressed	Adenocarcinoma		never	0.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1024	Female		32.86	32.86	0:Not Progressed	Adenocarcinoma		former	15.0	clinical benefit		PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1028	Female		12.63	6.38	0:Not Progressed	Adenocarcinoma		former	8.0	stable disease		SD	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1034	Male		5.79	5.59	0:Not Progressed	NSCLC NOS		current	30.0	stable disease		SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1025	Female		1.28	1.28	0:Not Progressed	Small Cell Lung Cancer		current	45.0	no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	1:DECEASED
+SU2C-1021	Female		24.9	1.32	0:Not Progressed	Adenocarcinoma		never	0.0	no clinical benefit		PD	long-term survival	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1035	Male		26.91	4.14	0:Not Progressed	Adenocarcinoma		former	30.0	stable disease		SD	clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+LUNG-2630	Male		15.53	7.66	0:Not Progressed	adenocarcinoma		former	40.0	stable disease		SD	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+DFCI-11-104	Male		21.71	21.71	1:Progressed	adenocarcinoma		Current	40.0	clinical benefit	57.0	CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_5	Male		14.61	14.61	1:Progressed	adenocarcinoma		Former	40.0	clinical benefit	66.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_13	Male		1.78	1.78	0:Not Progressed	adenocarcinoma		Former	37.5	no clinical benefit	56.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+MEL-582186	Female		13.65	10.63	0:Not Progressed	cutaneous				clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	0:LIVING
+MEL-587761	Male		19.21	6.12	0:Not Progressed	cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	0:LIVING
+MEL-650366	Female		26.12	1.38	0:Not Progressed	cutaneous				no clinical benefit		PD	long-term survival	no clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	0:LIVING
+MEL-682321	Female		14.7	14.7	1:Progressed	cutaneous				clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4 + anti-PD-1/PD-L1	no	0:LIVING
+Pat02	Female		53.68	41.25	1:Progressed	occult				stable disease	42.0	SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat03	Female		3.29	2.5	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	61.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat04	Male		32.47	21.25	1:Progressed	cutaneous	nodular			clinical benefit	71.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat06	Male		5.3	2.53	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	33.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat07	Male		34.54	23.72	1:Progressed	cutaneous				stable disease	35.0	SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat08	Male		4.61	2.4	0:Not Progressed	mucosal	nodular			no clinical benefit	73.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat100	Male		11.84	3.65	0:Not Progressed	cutaneous	nodular			no clinical benefit	71.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat101	Male		9.47	2.53	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	75.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat103	Male		34.47	31.88	0:Not Progressed	occult				clinical benefit	70.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat104	Female		7.8	7.8	0:Not Progressed	cutaneous				stable disease	45.0	SD	no clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat105	Male		34.44	22.7	1:Progressed	cutaneous	nodular			clinical benefit	41.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat106	Female		8.22	4.51	0:Not Progressed	cutaneous	nodular			no clinical benefit	43.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat11	Male		25.99	4.14	0:Not Progressed	occult				no clinical benefit	67.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat110	Male		10.53	2.4	0:Not Progressed	cutaneous				no clinical benefit	76.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat111	Male		20.33	15.36	0:Not Progressed	cutaneous				no clinical benefit	84.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat113	Male		9.9	1.71	0:Not Progressed	occult				clinical benefit	68.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat115	Male		4.77	2.43	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	46.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat117	Male		30.07	5.99	1:Progressed	cutaneous				clinical benefit	74.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat118	Female		10.3	3.95	0:Not Progressed	cutaneous				no clinical benefit	43.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat119	Male		26.58	3.55	1:Progressed	cutaneous				no clinical benefit	61.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat12	Male		9.54	2.76	0:Not Progressed	cutaneous				no clinical benefit	41.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat121	Male		4.01	2.76	0:Not Progressed	occult				no clinical benefit	47.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat123	Female		28.06	17.89	0:Not Progressed	occult				stable disease	49.0	SD	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat124	Male		4.8	2.2	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	78.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat126	Male		21.09	6.15	1:Progressed	cutaneous	nodular			clinical benefit	77.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat127	Female		10.92	3.95	0:Not Progressed	cutaneous				no clinical benefit	24.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat128	Male		3.72	2.66	0:Not Progressed	cutaneous	nodular			no clinical benefit	30.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat129	Male		17.73	2.24	1:Progressed	cutaneous	nodular			no clinical benefit	18.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat13	Male		24.08	3.42	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	78.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat132	Male		22.24	6.15	1:Progressed	cutaneous	superficial spreading			clinical benefit	81.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat133	Male		17.83	4.41	0:Not Progressed	mucosal				no clinical benefit	75.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat134	Male		9.93	2.37	0:Not Progressed	cutaneous				no clinical benefit	73.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat135	Female		2.66	2.4	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	29.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat138	Female		48.62	19.11	0:Not Progressed	cutaneous				stable disease	39.0	SD	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat139	Male		3.26	1.51	0:Not Progressed	cutaneous				no clinical benefit	58.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat14	Female		5.36	2.76	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	47.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat140	Male		16.18	3.75	0:Not Progressed	cutaneous				no clinical benefit	62.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat143	Male		5.03	2.96	0:Not Progressed	cutaneous				no clinical benefit	71.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat144	Male		28.62	24.05	0:Not Progressed	cutaneous				clinical benefit	65.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat147	Male		7.37	3.95	0:Not Progressed	occult				no clinical benefit	63.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat148	Female		2.76	1.58	0:Not Progressed	cutaneous				no clinical benefit	36.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat15	Male		1.64	1.02	0:Not Progressed	cutaneous				no clinical benefit	32.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat151	Male		6.71	3.49	0:Not Progressed	cutaneous				no clinical benefit	68.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat157	Female		2.83	1.74	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	69.0	X	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat159	Male		27.7	3.29	1:Progressed	cutaneous	superficial spreading			no clinical benefit	52.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat16	Female		26.68	2.76	0:Not Progressed	cutaneous				no clinical benefit	68.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat160	Male		5.0	2.66	0:Not Progressed	cutaneous				no clinical benefit	79.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat162	Female		6.94	2.57	0:Not Progressed	mucosal				no clinical benefit	55.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat163	Male		24.64	2.5	1:Progressed	occult				no clinical benefit	54.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat166	Male		2.53	2.5	0:Not Progressed	occult				no clinical benefit	31.0	X	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat167	Male		13.42	2.76	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	50.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat168	Male		2.2	2.2	0:Not Progressed	cutaneous	nodular			no clinical benefit	69.0	X	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat17	Male		6.74	2.8	0:Not Progressed	cutaneous				no clinical benefit	44.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat170	Male		3.55	3.19	0:Not Progressed	cutaneous	nodular			no clinical benefit	48.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat171	Male		15.33	2.8	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	66.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat174	Female		22.63	4.41	1:Progressed	cutaneous	nodular			clinical benefit	57.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat175	Female		2.96	2.96	0:Not Progressed	cutaneous				no clinical benefit	66.0	X	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat18	Female		37.3	3.68	0:Not Progressed	cutaneous	nodular			no clinical benefit	55.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat21	Male		22.24	18.36	0:Not Progressed	cutaneous	amelanotic			stable disease	81.0	SD	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat24	Female		31.94	21.64	1:Progressed	cutaneous	amelanotic nodular			clinical benefit	74.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat27	Male		45.36	4.57	0:Not Progressed	cutaneous	nodular			no clinical benefit	61.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat32	Male		4.84	2.3	0:Not Progressed	occult				no clinical benefit	73.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat39	Male		48.91	48.91	1:Progressed	cutaneous	superficial spreading			clinical benefit	67.0	CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat41	Male		4.21	1.78	0:Not Progressed	cutaneous	nodular			no clinical benefit	64.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat43	Female		1.22	1.22	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	75.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat45	Male		2.93	2.01	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	69.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat46	Female		5.26	1.18	0:Not Progressed	occult				no clinical benefit	37.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat47	Male		36.38	36.38	1:Progressed	cutaneous	superficial spreading			clinical benefit	78.0	CR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat49	Male		34.01	5.36	0:Not Progressed	cutaneous	nodular			stable disease	36.0	SD	clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat50	Male		2.14	2.14	0:Not Progressed	cutaneous	nodular			no clinical benefit	77.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat52	Male		6.22	2.24	0:Not Progressed	cutaneous				no clinical benefit	65.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat54	Male		6.84	2.66	0:Not Progressed	cutaneous				no clinical benefit	73.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat55	Female		6.35	2.57	0:Not Progressed	cutaneous	lentigo maligna			no clinical benefit	71.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat56	Male		7.73	3.16	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	68.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat57	Male		8.22	2.24	0:Not Progressed	cutaneous				no clinical benefit	69.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat58	Female		21.45	3.26	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	59.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat59	Male		7.37	2.5	0:Not Progressed	cutaneous				no clinical benefit	36.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat60	Male		8.95	2.93	0:Not Progressed	cutaneous	nodular			no clinical benefit	86.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat61	Female		3.98	2.66	0:Not Progressed	cutaneous and eye				no clinical benefit	78.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat62	Male		19.8	2.53	0:Not Progressed	cutaneous				no clinical benefit	76.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat64	Male		3.49	2.27	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	83.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat66	Female		21.48	19.67	0:Not Progressed	cutaneous	superficial spreading			stable disease	44.0	SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat67	Male		2.6	2.6	0:Not Progressed	cutaneous	nodular			no clinical benefit	40.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat71	Male		4.51	3.22	0:Not Progressed	occult				no clinical benefit	64.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat73	Male		14.54	13.42	0:Not Progressed	cutaneous	nodular			clinical benefit	71.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat74	Male		6.35	2.63	0:Not Progressed	cutaneous	superficial spreading			no clinical benefit	73.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat76	Male		4.57	2.3	0:Not Progressed	occult				no clinical benefit	74.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat77	Male		33.85	7.93	1:Progressed	occult				clinical benefit	22.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat79	Male		26.35	13.32	0:Not Progressed	cutaneous	superficial spreading			clinical benefit	69.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat80	Male		23.82	5.99	0:Not Progressed	cutaneous	nodular			stable disease	47.0	SD	clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat81	Female		20.66	2.5	0:Not Progressed	mucosal				no clinical benefit	54.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat82	Female		3.42	2.47	0:Not Progressed	cutaneous	nodular			no clinical benefit	54.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat83	Male		33.78	3.52	0:Not Progressed	cutaneous	blue nevus			no clinical benefit	22.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat85	Male		15.07	2.73	0:Not Progressed	cutaneous	desmoplastic			no clinical benefit	83.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat86	Male		9.64	5.03	0:Not Progressed	cutaneous	acral lentiginous			stable disease	54.0	SD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat87	Male		35.95	4.97	0:Not Progressed	cutaneous	acral lentiginous			no clinical benefit	47.0	PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat90	Male		33.06	22.01	1:Progressed	cutaneous				clinical benefit	59.0	PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+Pat98	Female		4.61	2.53	0:Not Progressed	cutaneous				no clinical benefit	57.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+Pat99	Female		11.58	2.7	0:Not Progressed	uveal				no clinical benefit	36.0	PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+luad_mskcc_2015_32	Female		1.88	1.88	0:Not Progressed	adenocarcinoma		Current	2.25	no clinical benefit	41.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+NR1867	Male		18.01	5.3	1:Progressed	cutaneous	acral lentiginous			no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR2137	Male		9.61	1.84	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR3549	Male		6.0	3.68	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR4018	Male		3.6	2.53	1:Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR4045	Male		20.41	2.53	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR4083	Male		2.76	2.76	1:Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR4631	Male		6.0	2.99	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR4810	Female		4.8	2.76	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR4949	Female		8.4	5.3	1:Progressed					no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR8815	Female		14.41	2.07	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR9445	Male		2.4	1.84	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	yes	0:LIVING
+NR9449	Female		7.2	2.3	1:Progressed	cutaneous				no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR9521	Male		32.42	2.76	1:Progressed	cutaneous				no clinical benefit		PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR9705	Female		14.41	6.68	1:Progressed	cutaneous	acral lentiginous			no clinical benefit		PD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	0:LIVING
+NR9765	Female		25.21	5.07	1:Progressed	cutaneous				no clinical benefit		PD	long-term survival	no clinical benefit	anti-CTLA-4	no	0:LIVING
+PR12117	Male		19.21	16.81	1:Progressed	cutaneous				clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4	no	1:DECEASED
+PR4035	Male		50.43	50.2	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+PR4046	Male		25.33	25.33	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+PR4077	Male		73.24	72.76	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+PR4091	Female		72.3	72.3	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+PR4092	Female		73.24	72.53	1:Progressed					clinical benefit		PR	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+luad_mskcc_2015_25	Male		1.38	1.38	0:Not Progressed	adenocarcinoma		Former	73.5	no clinical benefit	63.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_20	Female		10.39	10.39	1:Progressed	adenocarcinoma		Former	60.0	clinical benefit	78.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_6	Female		16.58	16.58	1:Progressed	adenocarcinoma		Former	21.0	clinical benefit	60.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_27	Male		2.07	2.07	0:Not Progressed	adenocarcinoma		Former	20.0	no clinical benefit	71.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_1	Female		8.39	8.39	1:Progressed	NSCLC NOS		Former	36.0	clinical benefit	63.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SARC-PD1	Female		24.01	6.91	0:Not Progressed	leiomyosarcoma				clinical benefit		CR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_19	Male		27.3	27.3	1:Progressed	squamous cell carcinoma		Never	0.0	clinical benefit	68.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_10	Female		12.6	12.6	1:Progressed	adenocarcinoma		Current	25.0	clinical benefit	64.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_21	Male		8.29	8.29	0:Not Progressed	adenocarcinoma		Current	15.0	stable disease	59.0	SD	no clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SD0346	Female		34.82	15.66	1:Progressed	cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	yes	1:DECEASED
+SD1494	Male		24.01	11.74	1:Progressed	cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+SD2051	Female		9.61	3.68	1:Progressed	cutaneous	acral lentiginous			stable disease		SD	no clinical benefit	no clinical benefit	anti-CTLA-4	yes	1:DECEASED
+SD2056	Female		47.89	47.89	1:Progressed	cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+SD5038	Male		14.41	5.53	1:Progressed	cutaneous				stable disease		SD	clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+SD5118	Female		32.42	5.53	1:Progressed	cutaneous	acral lentiginous			stable disease		SD	clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+SD5934	Male		19.21	3.22	1:Progressed	cutaneous				stable disease		SD	clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+SD6336	Male		83.13	83.13	1:Progressed	cutaneous				stable disease		SD	clinical benefit	clinical benefit	anti-CTLA-4	no	0:LIVING
+SD6494	Female		8.4	2.99	1:Progressed					stable disease		SD	no clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+SD7357	Female		24.01	4.84	1:Progressed					stable disease		SD	clinical benefit	no clinical benefit	anti-CTLA-4	no	1:DECEASED
+luad_mskcc_2015_17	Female		3.39	3.39	0:Not Progressed	squamous cell carcinoma		Former	2.5	no clinical benefit	51.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1002	Female		15.95	1.91	0:Not Progressed	adenocarcinoma		never	0.0	no clinical benefit	50.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1003	Female		4.34	1.84	0:Not Progressed	adenocarcinoma		never	0.0	no clinical benefit	77.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1004	Male		11.94	3.65	0:Not Progressed	adenocarcinoma		former	22.0	stable disease	61.0	SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1005	Female		11.15	1.12	0:Not Progressed	adenocarcinoma		never	0.0	no clinical benefit	72.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1006	Female		5.99	5.99	0:Not Progressed	adenocarcinoma		current	50.0	no clinical benefit	74.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1010	Male		9.93	3.91	0:Not Progressed	adenocarcinoma		former	16.0	stable disease	65.0	SD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1011	Male		5.82	1.84	0:Not Progressed	adenocarcinoma		current	25.0	no clinical benefit	76.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1013	Male		1.05	1.05	0:Not Progressed	adenocarcinoma		current	20.0	no clinical benefit	61.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	1:DECEASED
+SU2C-1016	Female		14.77	7.57	0:Not Progressed	squamous cell carcinoma		former	50.0	stable disease	72.0	SD	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1017	Female		14.24	14.24	1:Progressed	adenocarcinoma		current	68.0	clinical benefit	54.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+SU2C-1018	Female		3.16	1.15	0:Not Progressed	adenocarcinoma		never	0.0	no clinical benefit	52.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	yes	1:DECEASED
+SU2C-1020	Female		29.51	29.51	1:Progressed	adenocarcinoma		never	0.0	clinical benefit	43.0	PR	clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_26	Male		1.88	1.88	0:Not Progressed	adenocarcinoma		Never	0.0	no clinical benefit	49.0	PD	no clinical benefit	no clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING
+luad_mskcc_2015_4	Female		8.29	8.29	0:Not Progressed	adenocarcinoma		Never	0.0	stable disease	68.0	SD	no clinical benefit	clinical benefit	anti-PD-1/anti-PD-L1	no	0:LIVING

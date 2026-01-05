@@ -1,0 +1,132 @@
+---
+title: "Figure_6_source_data"
+output: html_document
+date: "2025-11-05"
+---
+
+# Panel A
+
+```{r}
+library(Hmisc)
+library(forestmodel)
+
+mutations = read.delim("zenodo/data_mutations_van_allen_2018.txt") #File found on the Zenodo repository
+mutations = mutations[mutations$Consequence == "missense_variant",]
+mutations$AA_change = sapply(mutations$HGVSp_Short, FUN = function(x) paste0(substr(x, 3, 3), substr(x, nchar(x), nchar(x))))
+aafreq = table(mutations$Tumor_Sample_Barcode, mutations$AA_change)
+class(aafreq) = "matrix"
+mutcnt = rowSums(aafreq)
+aafreq = aafreq[mutcnt >= 10,]
+aafreq = aafreq[,colSums(aafreq) > 0]
+relative_aafreq = aafreq/rowSums(aafreq)
+
+result = readRDS(paste0("MM_substitutions_GDC_grch38_10_5_relative.rds"))
+mtx = t(coef(result))
+mtx = mtx[,c(2,4,5,1,3)]
+colnames(mtx) = paste0("AAS", 1:5)
+
+relative_aafreq = t(relative_aafreq)
+all_substitutions = unique(c(rownames(mtx), rownames(relative_aafreq)))
+relative_aafreq = relative_aafreq[match(all_substitutions, rownames(relative_aafreq)),]
+relative_aafreq[is.na(relative_aafreq)] = 0
+
+mtx = mtx[match(all_substitutions, rownames(mtx)),]
+mtx[is.na(mtx)] = 0
+simil_mtx = t(apply(relative_aafreq, 2, FUN = function(x) {
+  apply(mtx, 2, FUN = function(y){
+    t = rcorr(cbind(x, y), type = "pearson")$r[1, 2]
+  })
+}))
+
+sample = read.delim("data_clinical_sample_van_allen_2018.txt", skip = 4)
+clinical = read.delim("data_clinical_patient_van_allen_2018.txt", skip = 4)
+
+simil_mtx = as.data.frame(simil_mtx)
+simil_mtx$patient_id = sample$PATIENT_ID[match(rownames(simil_mtx), sample$SAMPLE_ID)]
+simil_mtx$Tumor_type = sample$TUMOR_TYPE[match(rownames(simil_mtx), sample$SAMPLE_ID)]
+simil_mtx$TMB = sample$TMB_NONSYNONYMOUS[match(rownames(simil_mtx), sample$SAMPLE_ID)]
+simil_mtx = cbind.data.frame(simil_mtx, clinical[match(simil_mtx$patient_id, clinical$PATIENT_ID),])
+simil_mtx$recist_binary= simil_mtx$RECIST_RESPONSE == "clinical benefit"
+simil_mtx$Tumor_type[simil_mtx$Tumor_type == "Anal" | simil_mtx$Tumor_type == "Sarcoma" | simil_mtx$Tumor_type == "HNSCC"] = "Other"
+simil_mtx$max_class = apply(simil_mtx, 1, FUN = function(x) paste0("AASS", 1:5)[which.max(x[1:5])])
+
+colnames(simil_mtx)[10] = "Sex"
+colnames(simil_mtx)[7] = "Tu."
+
+model = glm(ROH_RESPONSE == "clinical benefit" ~ Sex + AAS4  + Tu. + log(TMB), data = simil_mtx, family = binomial(link = "logit"))
+
+panels <- list(list(width = 0.01),
+  list(width = 0.1, display = ~variable, heading = "Variable"),
+  list(width = 0.05, display = ~level),
+  list(width = 0.1, item = "vline", hjust = 0.5),
+  list(width = 0.55, item = "forest", hjust = 0.5, heading = "Hazard ratio", linetype = "dashed",
+    line_x = 0),
+  list(width = 0.07, item = "vline", hjust = 0.5),
+  list(width = 0.05,
+    display = ~ifelse(reference, "", format.pval(p.value, digits = 3, eps = 0.001)),
+    display_na = NA, hjust = 1, heading = "P"),
+  list(width = 0.03)
+)
+
+A = forest_model(model, panels = panels, format_options = list(colour = "#0D1282", shape = 15, text_size = 3, point_size = 3, banded = FALSE), breaks = c(-5,-3,0,1,2), exponentiate = F)
+A = A + labs(tag = "A", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+to_source_data = simil_mtx
+to_source_data = cbind.data.frame(Patient_ID = rownames(to_source_data), as.data.frame(to_source_data[,c(23,10,4,7,8)]))
+colnames(to_source_data) = c("Patient ID", "Response (Roh et al.)", "Sex", "Pearson corr. with AAS4", "Tumor type", "Tumor mutational burden")
+write.csv(to_source_data, file = "source_data/Figure_6/A/model_data.csv", quote = F, row.names = F)
+description = "model_data.csv - contains data for the construction of the logistic regression model in Figure 6A"
+writeLines(description, con = "source_data/Figure_6/A/README")
+
+
+```
+
+# Panel B and C
+
+```{r}
+library(survival)
+library(survminer)
+library(forestmodel)
+
+load("MM_preval_in_samples_06.rds")
+load("MM_clin_surv")
+
+preval_in_samples$DSS_time = clinical[match(substr(rownames(preval_in_samples), 1, 15),  rownames(clinical)),"clinical_OS.time"]
+preval_in_samples$DSS_event = clinical[match(substr(rownames(preval_in_samples), 1, 15),  rownames(clinical)),"clinical_OS"]
+preval_in_samples$Age = as.numeric(clinical[match(substr(rownames(preval_in_samples), 1, 15),  rownames(clinical)),"clinical_AGE"])
+preval_in_samples$Sex = clinical[match(substr(rownames(preval_in_samples), 1, 15),  rownames(clinical)),"clinical_GENDER"]
+colnames(preval_in_samples)[7:8] = c("TMB", "AASS")
+
+preval_in_samples = preval_in_samples[preval_in_samples$ttype == "SKCM",]
+preval_in_samples = preval_in_samples[preval_in_samples$AASS == "AASS2" | preval_in_samples$AASS == "AASS4",]
+preval_in_samples$sample_id = rownames(preval_in_samples)
+preval_in_samples$surv = Surv(time = as.numeric(preval_in_samples$DSS_time), event = as.numeric(preval_in_samples$DSS_event))
+colnames(preval_in_samples)[8] = "AAS"
+preval_in_samples$AAS = gsub("AASS", "AAS", preval_in_samples$AAS)
+model = coxph(surv ~ (Age > 70) + Sex + AAS + log(TMB), data = preval_in_samples[preval_in_samples$ttype == "SKCM",])
+
+B = ggsurvplot(survfit(surv ~ AAS, data = preval_in_samples), data = preval_in_samples, pval = T, palette = c("black","#78B33E"), legend.title = NULL, xlab = "Time (Days)", legend = "none",  pval.coord = c(0,0.03))
+B = B$plot
+B = B + labs(tag = "B", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+C = forest_model(model, panels = panels, format_options = list(colour = "#0D1282", shape = 15, text_size = 3, point_size = 3, banded = FALSE), breaks = c(0,1,2), exponentiate = F)
+C = C + labs(tag = "C", face = "bold") + theme(plot.tag = element_text(face = "bold"))
+
+to_source_data = preval_in_samples[,c(13,8,11,12,7,9:10)]
+colnames(to_source_data) = c("Sample ID", "AAS group", "Age", "Sex", "Tumor mutational burden", "DSS time (days)", "DSS event (1 = deceased, 0 = alive)")
+write.csv(to_source_data, file = "source_data/Figure_6/B/model_data.csv", quote = T, row.names = F)
+description = "model_data.csv - contains data for the construction of the Kaplan-Meier curve in Figure 6B and the Cox regression model in Figure 6C"
+writeLines(description, con = "source_data/Figure_6/C/README")
+
+```
+
+#Put figure together
+
+```{r}
+layout = rbind(c(8,8,8,8,9,9,9,10,10,10,10),
+               c(8,8,8,8,9,9,9,10,10,10,10))
+
+figure_6 =  arrangeGrob(A,B,C, layout_matrix = layout)
+ggsave(plot = figure_6, filename = "plots/MM_Figure_6.pdf", width = 37, height = 12, units = "cm", dpi = 300)
+```
+

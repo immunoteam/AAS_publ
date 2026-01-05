@@ -1,5 +1,5 @@
 ---
-title: "Figure_2_source_data"
+title: "Figure_2"
 output: html_document
 date: "2025-11-05"
 ---
@@ -13,7 +13,7 @@ library(ggseqlogo)
 library(ggtext)
 
 #### Calculating the frequency of nucleotide substitution motifs in TCGA samples
-mutations = readRDS("/Users/matemanczinger/Documents/Projektek/mutational_signatures/_toolarge/MM_mutations_full_GDC_grch38.rds") #File found on the Zenodo repository
+mutations = readRDS("zenodo/MM_mutations_full_GDC_grch38.rds") #File found on the Zenodo repository
 mutations$mutsig = apply(cbind(mutations$Reference_Allele, mutations$Tumor_Seq_Allele2, mutations$CONTEXT), 1, FUN = function(x) {
   if(nchar(x[3]) == 11) paste0(x[1], x[2], substr(x[3], 5, 7)) else NA
 })
@@ -22,12 +22,12 @@ mutsigstat = mutsigstat[nchar(names(mutsigstat)) == 5]
 mutsigstat_freq = mutsigstat / sum(mutsigstat)
 ########################
 
-#### Simulating the effect of each of the 192 mutation profile by generating 1000 missense mutations
-load("/Users/matemanczinger/Documents/Projektek/mutational_signatures/clean_mutational_signatures/aa_changes_0916")
+#### Loading the results of simulating the effect of mutation profiles
+load("aa_changes_0916.RData") 
 #######################
 
 #### Associating mutation profiles with AASs
-result = readRDS(paste0("common_objects/MM_substitutions_GDC_grch38_10_5_relative.rds"))
+result = readRDS(paste0("MM_substitutions_GDC_grch38_10_5_relative.rds"))
 mtx = t(coef(result))
 mtx = mtx[,c(2,4,5,1,3)]
 colnames(mtx) = paste0("AASS", 1:5)
@@ -58,9 +58,9 @@ toplot = toplot[,sort(colnames(toplot))]
 labs = paste0(substr(colnames(toplot), 3, 3), "<span style='color:red'>**", substr(colnames(toplot), 4, 4), "**</span>", substr(colnames(toplot), 5, 5))
 to_source_data = toplot
 to_source_data = cbind.data.frame(AAS = paste0("AAS", 1:5), as.data.frame(to_source_data))
-write.csv(to_source_data, file = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/A/motif_data.csv", quote = F, row.names = F)
+write.csv(to_source_data, file = "source_data/Figure_2/A/motif_data.csv", quote = F, row.names = F)
 description = "motif_data.csv - contains the sizes (in bits) of AAS1 to AAS5 shown in Figure 2A, for each nucleotide mutation across different sequence contexts. In the column names, the first two characters indicate the nucleotide substitution, and characters 3–5 indicate the trinucleotide context. For example, ACAAA denotes an A>C substitution with an A at both the 5′ and 3′ flanking positions."
-writeLines(description, con = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/A/README")
+writeLines(description, con = "source_data/Figure_2/A/README")
 #######################
 
 #### Creating plot
@@ -100,7 +100,7 @@ A = p + labs(tag = "A", face = "bold") + theme(plot.tag = element_text(face = "b
 library(pheatmap)
 library(NMF)
 
-result = readRDS(paste0("common_objects/MM_substitutions_GDC_grch38_10_5_relative.rds"))
+result = readRDS(paste0("MM_substitutions_GDC_grch38_10_5_relative.rds"))
 mtx = coef(result)
 mtx = mtx[c(2,4,5,1,3),]
 rownames(mtx) = paste0("AAS", 1:5)
@@ -108,9 +108,9 @@ B = pheatmap(mtx[,apply(mtx, 2, max) > 0.01], cluster_rows = F, treeheight_col =
 
 to_source_data = mtx
 to_source_data = cbind.data.frame(AAS = paste0("AAS", 1:5), as.data.frame(to_source_data))
-write.csv(to_source_data, file = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/B/heatmap_data.csv", quote = F, row.names = F)
+write.csv(to_source_data, file = "source_data/Figure_2/B/heatmap_data.csv", quote = F, row.names = F)
 description = "heatmap_data.csv - contains the coefficients for each amino acid substitution in AAS1 to AAS5, as displayed in the heatmap in Figure 2B."
-writeLines(description, con = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/B/README")
+writeLines(description, con = "source_data/Figure_2/B/README")
 
 ```
 
@@ -121,14 +121,14 @@ library(ggplot2)
 library(NMF)
 library(reshape2)
 
-result = readRDS(paste0("common_objects/MM_substitutions_GDC_grch38_10_5_relative.rds"))
+result = readRDS(paste0("MM_substitutions_GDC_grch38_10_5_relative.rds"))
 preval_in_samples = basis(result)
 rown = make.unique(substr(rownames(preval_in_samples), 1, 16))
 # 4 = 3, 1 = 1, 3 = 2
 preval_in_samples = preval_in_samples[,c(2,4,5,1,3)]
 colnames(preval_in_samples) = paste0("AASS", 1:ncol(preval_in_samples))
 
-load("common_objects/MM_tumors_studies.RData") #The object contains the classification of tumor samples to tumor types
+load("MM_tumors_studies.RData") #The object contains the classification of tumor samples to tumor types
 ttypes = unlist(tumors_studies[match(rownames(preval_in_samples), tumors_studies[,1]), 2])
 ttypestat = table(ttypes)
 ttypestat = ttypestat[ttypestat > 100]
@@ -153,9 +153,9 @@ C = C + labs(tag = "C", face = "bold") + theme(plot.tag = element_text(face = "b
 
 to_source_data = kimut
 colnames(to_source_data) = c("Tumor type", "Dominant AAS", "Sample count")
-write.csv(to_source_data, file = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/C/barchart_data.csv", quote = F, row.names = F)
+write.csv(to_source_data, file = "source_data/Figure_2/C/barchart_data.csv", quote = F, row.names = F)
 description = "barchart_data.csv - contains the number of samples for each tumor type whose mutational profiles are dominated by AAS1 to AAS5."
-writeLines(description, con = "/Users/matemanczinger/Documents/Projektek/orig_mutational_signatures/results/manuscript/uploaded_files/source_data/Figure_2/C/README")
+writeLines(description, con = "source_data/Figure_2/C/README")
 
 ```
 
@@ -171,8 +171,8 @@ layout = rbind(c(1,1,1,1,1,1,3,3,3,3),
                c(2,2,2,2,2,2,3,3,3,3))
 
 figure_2 =  arrangeGrob(A,B,C, layout_matrix = layout)
-ggsave(plot = figure_2, filename = "/Users/matemanczinger/Documents/Projektek/mutational_signatures/clean_mutational_signatures/results/plots/MM_Figure_2.pdf", width = 40, height = 18, units = "cm", dpi = 300)
+ggsave(plot = figure_2, filename = "plots/MM_Figure_2.pdf", width = 40, height = 18, units = "cm", dpi = 300)
 
 ```
 
-Note: the letter for panel B was manually inserted in Vectornator.
+
